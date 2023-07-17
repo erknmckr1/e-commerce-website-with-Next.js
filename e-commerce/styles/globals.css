@@ -20,5 +20,9 @@ body {
 }
 
 .btn{
-  @apply bg-primary p-2 !opacity-100 hover:scale-105 transition-all ease-in-out
+  @apply bg-primary p-2 text-white  hover:scale-105 transition-all ease-in-out uppercase 
+}
+
+.slick-dots .slick-active div{
+  @apply  bg-secondary rounded-full scale-150 
 }
