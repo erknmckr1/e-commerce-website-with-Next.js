@@ -2,7 +2,7 @@ import React from 'react'
 
 function Title({children,addProps}) {
   return (
-    <div className={`font-bold ${addProps}`} >{children}</div>
+    <div className={` tracking-wide  ${addProps}`} >{children}</div>
   )
 }
 

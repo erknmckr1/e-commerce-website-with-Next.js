@@ -31,7 +31,7 @@ function TopSellerWrapper() {
       ),
   };
   return (
-    <div className="py-24 mt-20 sm:mt-0 sm:container sm:mx-auto ">
+    <div className="py-24  sm:mt-0 sm:container sm:mx-auto ">
       <Slider {...settings}>
         <TopSellerItem />
         <TopSellerItem />

@@ -11,6 +11,8 @@
   padding: 0;
   margin: 0;
   font-family: 'Poppins', sans-serif;
+  transition: all;
+  
 }
 
 html,
@@ -20,7 +22,7 @@ body {
 }
 
 .btn{
-  @apply bg-primary p-2 text-white  hover:scale-105 transition-all ease-in-out uppercase 
+  @apply bg-primary p-2 text-white  hover:scale-105 transition-all ease-in-out uppercase hover:bg-secondary
 }
 
 .slick-dots .slick-active div{
