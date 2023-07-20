@@ -38,7 +38,7 @@ function Review() {
       <div className="container mx-auto w-full h-full">
         <div className="w-full h-full flex-col">
           <div className="w-full h-full  px-2 sm:px-0 ">
-            <Title addProps="text-[40px] py-10 ">Customer Review</Title>
+            <Title addProps="text-[40px] py-10 ml-10 lg:ml-0 ">Customer Review</Title>
             <Slider {...settings}>
               <ReviewItem />
               <ReviewItem />
