@@ -27,19 +27,19 @@ function Header() {
                 <Link href="/">HOME</Link>
               </li>
               <li>
-                <button>SHOP</button>
+                <Link href="/shop">SHOP</Link>
               </li>
               <li>
-                <button>BLOG</button>
+                <Link href="/blog">BLOG</Link>
               </li>
               <li>
-                <button>OUR PRODUCT</button>
+                <Link href="/product">OUR PRODUCT</Link>
               </li>
               <li>
-                <button>CLIENTS</button>
+                <Link href="/rewievs">CLIENTS</Link>
               </li>
               <li>
-                <button>CONTACT US</button>
+                <Link href="/contact">CONTACT US</Link>
               </li>
             </ul>
             <div className="flex gap-x-5 gap-y-6 lg:gap-y-0 flex-col lg:flex-row">
