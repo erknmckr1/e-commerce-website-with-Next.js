@@ -8,7 +8,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Search from "../ui/Search";
 function Header() {
   const [burgerButton, setBurgerButton] = useState(true);
-  const [searchButton,setSearchButton] = useState(true)
+  const [searchButton,setSearchButton] = useState(false)
 
   const handleClick = () => {
     setTimeout(()=>{
