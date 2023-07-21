@@ -38,7 +38,7 @@ function Corousel() {
 
       <Slider {...settings}>
         <div>
-          <div className="bg-white h-full bg-opacity-80 mt-[80px] md:mt-24 lg:mt-48  flex flex-col gap-y-10 items-start container    mx-auto p-10 ">
+          <div className="bg-white h-full bg-opacity-80 mt-28  md:mt-48  flex flex-col gap-y-10 items-start container    mx-auto p-10 ">
             <div className="flex flex-col sm:flex-row justify-between text-black ">
               <div className="flex flex-col w-full sm:w-1/2">
                 <Title addProps="p-3 sm:text-[45px] text-[30px] sm:p-10 text-primary">
@@ -79,7 +79,7 @@ function Corousel() {
           </div>
         </div>
         <div>
-          <div className="bg-white h-full bg-opacity-80 mt-[80px] md:mt-24 lg:mt-48  flex flex-col gap-y-10 items-start container    mx-auto p-10 ">
+          <div className="bg-white h-full bg-opacity-80 mt-28 md:mt-48  flex flex-col gap-y-10 items-start container    mx-auto p-10 ">
             <div className="flex flex-col sm:flex-row justify-between text-black ">
               <div className="flex flex-col w-full sm:w-1/2">
                 <Title addProps="p-3 sm:text-[45px] text-[30px] sm:p-10 text-primary">
@@ -120,7 +120,7 @@ function Corousel() {
           </div>
         </div>
         <div>
-          <div className="bg-white h-full bg-opacity-80 mt-[80px] md:mt-24 lg:mt-48  flex flex-col gap-y-10 items-start container    mx-auto p-10 ">
+          <div className="bg-white h-full bg-opacity-80 mt-28  md:mt-48   flex flex-col gap-y-10 items-start container    mx-auto p-10 ">
             <div className="flex flex-col sm:flex-row justify-between text-black ">
               <div className="flex flex-col w-full sm:w-1/2">
                 <Title addProps="p-3 sm:text-[45px] text-[30px] sm:p-10 text-primary">
