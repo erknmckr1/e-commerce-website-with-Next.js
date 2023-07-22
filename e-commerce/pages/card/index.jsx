@@ -22,7 +22,7 @@ function index() {
            <OrderCard/>
            <OrderCard/>
           </div>
-          <div className={`  sm:w-1/4 h-[200px] bg-[#FEF2E7]  rounded-lg lg:p-10 sm:p-5 p-1 py-3 flex flex-col justify-between right-0  lg:right-14 fixed sm:static  ${show===false ? "translate-x-[250px]" :""} transition-all duration-1000 `}>
+          <div className={`  sm:w-1/4 h-[200px] bg-[#FEF2E7]  rounded-lg lg:p-10 sm:p-5 p-1 py-3 flex flex-col justify-between right-0  lg:right-14 fixed   ${show===false ? "translate-x-[250px]" :""} transition-all duration-1000 `}>
                 <Title addProps="sm:text-[20px] text-sm text-center ">Sipariş Özeti</Title>
                 <div className="flex justify-between items-center   ">
                     <p className="text-xs">Sipariş Toplamı:</p>

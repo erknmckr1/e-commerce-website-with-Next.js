@@ -28,3 +28,7 @@ body {
 .slick-dots .slick-active div{
   @apply  bg-secondary rounded-full scale-150 
 }
+
+.MuiPaper-root{
+  @apply !h-[200px]
+}
