@@ -5,13 +5,14 @@ import UserInfo from "@/components/profile/UserInfo";
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import Orders from "@/components/profile/Orders";
+import AddressInfo from "@/components/profile/AddressInfo/AddressInfo";
 function index() {
     const [tabIndex,setTabIndex]=useState(0)
-    const [close,setClose] = useState(false)
+    const [close,setClose] = useState(true)
     const handleClick = () => {
         setClose(prev => !prev)
     } 
-    console.log(tabIndex)
+
   return (
     <div className="container mx-auto py-20 relative ">
     
@@ -53,6 +54,7 @@ function index() {
         <div className="w-full h-full">
           {tabIndex === 0 && <UserInfo />}
           {tabIndex === 1 && <Orders />}
+          {tabIndex === 2 && <AddressInfo />}
         </div>
       </div>
       <ArrowForwardIosIcon onClick={handleClick} className={`absolute top-0 left-0 ${close === true ? "hidden":""}`}/>
