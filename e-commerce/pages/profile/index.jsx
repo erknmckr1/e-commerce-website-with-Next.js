@@ -4,12 +4,14 @@ import { useState } from "react";
 import UserInfo from "@/components/profile/UserInfo";
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-
+import Orders from "@/components/profile/Orders";
 function index() {
+    const [tabIndex,setTabIndex]=useState(0)
     const [close,setClose] = useState(false)
     const handleClick = () => {
         setClose(prev => !prev)
-    }
+    } 
+    console.log(tabIndex)
   return (
     <div className="container mx-auto py-20 relative ">
     
@@ -30,16 +32,16 @@ function index() {
           <div className="flex flex-col w-full h-full py-10 ">
             <ul className="w-full h-full ">
               <li className="">
-                <button className="btn w-full">User Information</button>
+                <button onClick={()=>{setTabIndex(0)}} className="btn w-full">User Information</button>
               </li>
               <li className="w-full">
-                <button className="btn w-full ">Orders</button>
+                <button onClick={()=>{setTabIndex(1)}} className="btn w-full ">Orders</button>
               </li>
               <li className="">
-                <button className="btn w-full">Address Info</button>
+                <button onClick={()=>{setTabIndex(2)}} className="btn w-full">Address Info</button>
               </li>
               <li className="">
-                <button className="btn w-full">Saved</button>
+                <button onClick={()=>{setTabIndex(3)}} className="btn w-full">Saved</button>
               </li>
               <li className="">
                 <button className="btn w-full">Exit</button>
@@ -49,7 +51,8 @@ function index() {
         </div>
         {/* right side */}
         <div className="w-full h-full">
-          <UserInfo />
+          {tabIndex === 0 && <UserInfo />}
+          {tabIndex === 1 && <Orders />}
         </div>
       </div>
       <ArrowForwardIosIcon onClick={handleClick} className={`absolute top-0 left-0 ${close === true ? "hidden":""}`}/>

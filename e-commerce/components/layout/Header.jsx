@@ -57,7 +57,7 @@ function Header() {
                   {searchButton ? <SearchOffIcon/>  :  <SearchIcon/>}
                 </button>
               
-              <Link href="#">
+              <Link href="/card">
                 <button>
                   <ShoppingBasketIcon />
                 </button>
