@@ -12,13 +12,14 @@ import Checkbox from "@mui/material/Checkbox";
 import { useFormik } from "formik";
 import { useState } from "react";
 import UserInformationSchema from "@/schema/userInformation";
-function UserInfo() {
+import { toast } from "react-hot-toast";
+import axios from "axios";
+function UserInfo({ user }) {
   const [checkboxState, setCheckboxState] = useState({
     Woman: false,
     Man: false,
   });
 
-  
   const handleCheckboxChange = (checkboxName, event) => {
     setCheckboxState((prevState) => ({
       ...prevState,
@@ -29,101 +30,105 @@ function UserInfo() {
     values.gender = checkboxName;
   };
 
-  const onSubmit = () => {
-    alert(JSON.stringify(values, null, 2));
-  }
+  //! Updated Informatıon
+  const onSubmit = async (values) => {
+    try {
+      const res = await axios.put(
+        `${process.env.NEXT_PUBLIC_API_URL}/user/${user.user._id}`,
+        values
+      );
+      if(res.status===200){
+        toast.success("User Information Updated!")
+        window.location.reload();
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  
   const { handleBlur, handleChange, handleSubmit, touched, values, errors } =
     useFormik({
       initialValues: {
-        firstname: "",
-        lastname: "",
-        phoneNumber: "",
-        day: "",
-        mounth: "",
-        year: "",
-        gender: "",
-        currentPassword: "",
-        newPassword:"",
-        confirmPassword:"",
-        email:""
-
+        firstName: user.user.firstName,
+        lastName: user.user.lastName,
+        phoneNumber: user.user.phoneNumber,
+        day: user.user.day,
+        mounth: user.user.mounth,
+        year: user.user.year,
+        gender: user.user.gender,
+        password: "",
+        confirmPassword: "",
+        email: user.user.email,
       },
-      onSubmit:onSubmit,
-      validationSchema:UserInformationSchema
+      onSubmit: onSubmit,
+      validationSchema: UserInformationSchema,
     });
-
   const inputs = [
     {
       id: 1,
-      name: "firstname",
+      name: "firstName",
       type: "text",
       placeholder: "Your First Name",
-      value: values.firstname,
-      errorMessage: errors.firstname,
-      touched: touched.firstname,
+      value: values.firstName || "",
+      errorMessage: errors.firstName,
+      touched: touched.firstName,
     },
     {
       id: 2,
-      name: "lastname",
+      name: "lastName",
       type: "text",
       placeholder: "Your Last Name",
-      value: values.lastname,
-      errorMessage: errors.lastname,
-      touched: touched.lastname,
+      value: values.lastName || "",
+      errorMessage: errors.lastName,
+      touched: touched.lastName,
     },
     {
       id: 3,
       name: "phoneNumber",
       type: "text",
       placeholder: "Your Phone Number",
-      value: values.phoneNumber,
+      value: values.phoneNumber || "",
       errorMessage: errors.phoneNumber,
       touched: touched.phoneNumber,
     },
     {
-        id: 4,
-        name: "currentPassword",
-        type: "password",
-        placeholder: "Your Current Password",
-        value: values.currentPassword,
-        errorMessage: errors.currentPassword,
-        touched: touched.currentPassword,
-      },
-      {
-        id: 5,
-        name: "newPassword",
-        type: "password",
-        placeholder: "Your New Password",
-        value: values.newPassword,
-        errorMessage: errors.newPassword,
-        touched: touched.newPassword,
-      },
-      {
-        id: 6,
-        name: "confirmPassword",
-        type: "password",
-        placeholder: "Your New Password Confirm",
-        value: values.confirmPassword,
-        errorMessage: errors.confirmPassword,
-        touched: touched.confirmPassword,
-      },
-      {
-        id: 7,
-        name: "email",
-        type: "email",
-        placeholder: "Your Email",
-        value: values.email,
-        errorMessage: errors.email,
-        touched: touched.email,
-      },
+      id: 4,
+      name: "password",
+      type: "password",
+      placeholder: "Your Current Password",
+      value: values.password || "",
+      errorMessage: errors.password,
+      touched: touched.password,
+    },
+    {
+      id: 5,
+      name: "confirmPassword",
+      type: "password",
+      placeholder: "Your New Password Confirm",
+      value: values.confirmPassword || "",
+      errorMessage: errors.confirmPassword,
+      touched: touched.confirmPassword,
+    },
+    {
+      id: 6,
+      name: "email",
+      type: "email",
+      placeholder: "Your Email",
+      value: values.email || "",
+      errorMessage: errors.email,
+      touched: touched.email,
+    },
   ];
- 
+
   return (
     <form onSubmit={handleSubmit} className="flex-1 sm:ml-3">
-      <Title addProps="px-10 py-5 text-[25px] font-semibold  text-center sm:text-start">User Information</Title>
+      <Title addProps="px-10 py-5 text-[25px] font-semibold  text-center sm:text-start">
+        User Information
+      </Title>
       <div className="flex flex-col sm:flex-row p-10 w-full border-2 gap-x-2">
         {/* left side  */}
-   
+
         <div className="w-full sm:w-1/2 flex flex-col gap-y-3  p-1 ">
           {/* name */}
           <div className="flex w-full gap-x-5 ">
@@ -152,7 +157,7 @@ function UserInfo() {
           {/* email */}
           <label className="flex flex-col gap-y-2">
             <p className="text-xs font-semibold">Email</p>
-            <Input {...inputs[6]} onChange={handleChange} onBlur={handleBlur} />
+            <Input {...inputs[5]} onChange={handleChange} onBlur={handleBlur} />
           </label>
           {/* dogum tarıhı */}
           <label className="">
@@ -231,41 +236,34 @@ function UserInfo() {
                 }
                 label="Man"
                 name="gender"
-              
               />
               <FormControlLabel
                 control={
                   <Checkbox
                     checked={checkboxState.Woman ? true : false}
                     onChange={() => handleCheckboxChange("Woman", event)}
-                    
                   />
                 }
                 label="Woman"
                 name="gender"
-                
               />
             </FormGroup>
           </div>
-        </div>       
+        </div>
         {/* right side */}
-       
+
         <div className="w-full sm:w-1/2 flex flex-col gap-y-3  p-1 px-2 border-l-2 relative">
-            <label htmlFor="" className="flex flex-col gap-y-2 ">
-                <p className="text-xs font-semibold ">Mevcut Şifre</p>
-                <Input {...inputs[3]} onChange={handleChange} onBlur={handleBlur}/>
-            </label>
-            <label htmlFor="" className="flex flex-col gap-y-2 ">
-                <p className="text-xs font-semibold ">Yeni Şifre</p>
-                <Input {...inputs[4]} onChange={handleChange} onBlur={handleBlur}/>
-            </label>
-            <label htmlFor="" className="flex flex-col gap-y-2 ">
-                <p className="text-xs font-semibold ">Yeni Şifre (Tekrar)</p>
-                <Input {...inputs[5]} onChange={handleChange} onBlur={handleBlur}/>
-            </label>
-            <div className=" absolute sm:bottom-0 -bottom-10 ">
-                <button className="btn">UPDATE</button>
-            </div>
+          <label  className="flex flex-col gap-y-2 ">
+            <p className="text-xs font-semibold ">Mevcut Şifre</p>
+            <Input {...inputs[3]} onChange={handleChange} onBlur={handleBlur} />
+          </label>
+          <label  className="flex flex-col gap-y-2 ">
+            <p className="text-xs font-semibold ">Confirm Password</p>
+            <Input {...inputs[4]} onChange={handleChange} onBlur={handleBlur} />
+          </label>
+          <div className=" absolute sm:bottom-0 -bottom-10 ">
+            <button type="submit"  className="btn">UPDATE</button>
+          </div>
         </div>
       </div>
     </form>

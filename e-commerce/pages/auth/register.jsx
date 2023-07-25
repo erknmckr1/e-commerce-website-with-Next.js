@@ -5,15 +5,29 @@ import Input from '@/components/ui/Input'
 import Title from '@/components/ui/Title'
 import Link from 'next/link'
 import RegisterSchema from '@/schema/register'
+import axios from 'axios'
+import { toast } from 'react-hot-toast'
+
 function register() {
-    const OnSubmit = () => {
-        alert(JSON.stringify(values, null, 2));
-        resetForm();
+
+    const OnSubmit = async (values,actions) => {
+        try {
+          const res = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/user/register`,values)
+          if(res.status ===200){
+            toast.success("User account created")
+            //!
+            actions.resetForm();
+          }else{
+            toast.error("Please try again!")
+          }
+        } catch (err) {
+          console.log(err)
+        }
       };
 
     const {values,touched,handleBlur,handleChange,resetForm,handleSubmit,errors} = useFormik({
         initialValues:{
-            userName:"",
+            firstName:"",
             email:"",
             password:"",
             confirmPassword:""
@@ -27,11 +41,11 @@ function register() {
         {
             id:1,
             type:"text",
-            name:"userName",
+            name:"firstName",
             placeholder:"Your User Name",
-            touched:touched.userName,
-            value:values.userName,
-            errorMessage:errors.userName
+            touched:touched.firstName,
+            value:values.firstName,
+            errorMessage:errors.firstName
         },
         {
             id:2,

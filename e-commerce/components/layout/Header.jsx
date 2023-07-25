@@ -6,6 +6,7 @@ import SearchOffIcon from '@mui/icons-material/SearchOff';
 import Link from "next/link";
 import MenuIcon from "@mui/icons-material/Menu";
 import Search from "../ui/Search";
+import ScrollButton from "../ui/ScrollButton";
 function Header() {
   const [burgerButton, setBurgerButton] = useState(true);
   const [searchButton,setSearchButton] = useState(false)
@@ -73,6 +74,7 @@ function Header() {
         </button>
       </div>
      { searchButton===true ? <Search/> : ""}
+     <ScrollButton/>
     </header>
   );
 }
