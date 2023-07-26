@@ -30,6 +30,7 @@ function login() {
     }
   };
 
+  //! sayfa yonlendırme
   useEffect(() => {
     const getUser = async () => {
       try {
