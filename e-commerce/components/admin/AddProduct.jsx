@@ -19,7 +19,7 @@ function AddProduct({ setIsVisible }) {
         amount:""
     }
   })
-  console.log(values)
+
   //! FileReader
   const handleFileChange = (changeEvent) => {
     const reader = new FileReader();

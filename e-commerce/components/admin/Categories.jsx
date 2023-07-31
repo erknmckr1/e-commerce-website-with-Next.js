@@ -58,11 +58,11 @@ function Categories() {
       console.log(err);
     }
   };
-  console.log(categories);
+
   return (
     <div className="flex-1 min-h-[510px] w-full">
-      <div className="flex justify-center ">
-        <div className="w-[800px] flex flex-col">
+      <div className="flex justify-start sm:px-10 px-2 ">
+        <div className="w-full flex flex-col">
           <Title addProps="text-[40px] pb-10">Categories</Title>
           {/* add category input  */}
           <div className="flex justify-between gap-x-2">
@@ -79,7 +79,7 @@ function Categories() {
             </button>
           </div>
           {/* category list */}
-          <div className=" overflow-y-auto  max-h-[310px] ">
+          <div className=" w-full overflow-y-auto  max-h-[310px] ">
             <div className="w-full flex flex-col mt-2">
               {categories.map((category) => (
                 <div

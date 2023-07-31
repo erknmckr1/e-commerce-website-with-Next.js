@@ -11,7 +11,9 @@ import Products from "@/components/admin/Products";
 import AddIcon from '@mui/icons-material/Add';
 import AddProduct from "@/components/admin/AddProduct";
 import Categories from "@/components/admin/Categories";
-function profile() {
+
+function profile({productList}) {
+  
   const { push } = useRouter();
   const [tabIndex, setTabIndex] = useState(0);
   const [close, setClose] = useState(true);
@@ -100,16 +102,6 @@ function profile() {
                 }}
                 className="btn w-full"
               >
-                Saved
-              </button>
-            </li>
-            <li className="">
-              <button
-                onClick={() => {
-                  setTabIndex(3);
-                }}
-                className="btn w-full"
-              >
                 Footer
               </button>
             </li>
@@ -122,7 +114,7 @@ function profile() {
         </div>
       </div>
       {/* right side */}
-      {tabIndex === 0 && <Products />}
+      {tabIndex === 0 && <Products productList={productList} />}
       {tabIndex === 2 && <Categories />}
       {isVisible && <AddProduct setIsVisible={setIsVisible} isVisible={isVisible}/>}
       <ArrowForwardIosIcon
@@ -135,5 +127,17 @@ function profile() {
 }
 
 export default profile;
+
+export const getServerSideProps = async () => {
+
+  const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/product`)
+
+  return{
+    props:{
+      productList: res.data ? res.data : [],
+    }
+  }
+
+}
 
 
