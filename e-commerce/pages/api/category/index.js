@@ -5,12 +5,21 @@ const handler = async (req, res) => {
   dbConnect();
   const { method } = req;
 
+  if (method === "GET") {
+    try {
+      const categories = await Category.find();
+      res.status(200).json(categories);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+  
   if (method === "POST") {
     const category = await Category.findOne({ title: req.body.title });
 
     if (category) {
       console.log("Category is already added!");
-      return res.status(400).json({message:"Category is already added!"})
+      return res.status(400).json({ message: "Category is already added!" });
     }
 
     try {
