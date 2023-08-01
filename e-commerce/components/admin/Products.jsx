@@ -33,8 +33,8 @@ function Products(productList) {
   return (
     <div className=" flex-1 min-h-[510px] lg:mt-0 mt-5 m-2 sm:m-0 sm:px-10 ">
       <Title addProps="text-[40px]">Products</Title>
-      <div className="overflow-x-auto w-full mt-5 overflow-y-scroll  ">
-        <table className="w-full text-sm text-center text-black  lg:min-w-[1000px]">
+      <div className="overflow-x-auto w-full mt-5 max-h-[410px] overflow-y-scroll   ">
+        <table className="w-full text-sm text-center text-black   lg:min-w-[1000px]">
           <thead className="text-xs text-gray-400 uppercase bg-gray-700">
             <tr>
               <th scope="col" className="py-3 px-6">

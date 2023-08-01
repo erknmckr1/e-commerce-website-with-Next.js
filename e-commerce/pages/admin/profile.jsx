@@ -12,8 +12,7 @@ import AddIcon from '@mui/icons-material/Add';
 import AddProduct from "@/components/admin/AddProduct";
 import Categories from "@/components/admin/Categories";
 
-function profile({productList}) {
-  
+function profile({productList,categoryList}) {
   const { push } = useRouter();
   const [tabIndex, setTabIndex] = useState(0);
   const [close, setClose] = useState(true);
@@ -23,6 +22,7 @@ function profile({productList}) {
     setClose((prev) => !prev);
   };
 
+  //! Signout function
   const handleSıgnOut = async () => {
     try {
       const res = await axios.post(
@@ -116,7 +116,7 @@ function profile({productList}) {
       {/* right side */}
       {tabIndex === 0 && <Products productList={productList} />}
       {tabIndex === 2 && <Categories />}
-      {isVisible && <AddProduct setIsVisible={setIsVisible} isVisible={isVisible}/>}
+      {isVisible && <AddProduct categoryList={categoryList} setIsVisible={setIsVisible} isVisible={isVisible}/>}
       <ArrowForwardIosIcon
         onClick={handleClick}
         className={`absolute top-0 left-0 ${close === true ? "hidden" : ""}`}
@@ -131,10 +131,12 @@ export default profile;
 export const getServerSideProps = async () => {
 
   const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/product`)
+  const categories = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/category`)
 
   return{
     props:{
       productList: res.data ? res.data : [],
+      categoryList:categories.data ? categories.data : []
     }
   }
 

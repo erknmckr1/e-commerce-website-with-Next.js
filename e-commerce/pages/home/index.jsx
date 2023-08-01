@@ -7,12 +7,12 @@ import ProductWrapper from "@/components/product/ProductWrapper";
 import TopSellerWrapper from "@/components/topSeller/TopSellerWrapper";
 import React from "react";
 
-function Home() {
+function Home({productList,categoryList}) {
   return (
     <div>
       <Corousel />
       <TopSellerWrapper />
-      <ProductWrapper />
+      <ProductWrapper productList={productList} categoryList={categoryList} />
       <About />
       <ProductSection />
       <Blog />

@@ -6,7 +6,8 @@ import CloseIcon from "@mui/icons-material/Close";
 import { useState } from "react";
 import axios from "axios";
 import { toast } from "react-hot-toast";
-function AddProduct({ setIsVisible }) {
+function AddProduct({ setIsVisible,categoryList }) {
+  console.log(categoryList)
   const [imageSrc, setImageSrc] = useState();
   const [imageFile, setImageFile] = useState();
 
@@ -143,10 +144,11 @@ function AddProduct({ setIsVisible }) {
                   onChange={handleChange}
                   value={values.category}
                 >
-                  <option value="phone">Phone</option>
-                  <option value="television">Television</option>
-                  <option value="Watch">Watch</option>
-                  <option value="earphones">Earphones</option>
+                  <option value="Select your option">Select Your Option</option>
+                  {categoryList.map(category=>(
+                    <option key={category._id} value={category.title}>{category.title}</option>
+                  ))}
+                  
                 </select>
               </div>
 
