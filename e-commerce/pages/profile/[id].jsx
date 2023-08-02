@@ -25,7 +25,7 @@ function index({ user }) {
   }
 
   return (
-    <div className="container mx-auto py-20 relative ">
+    <div className="container mx-auto py-10 relative ">
       <div className="w-full h-full flex justify-between  ">
         {/* left side */}
         <div
@@ -101,7 +101,7 @@ function index({ user }) {
         <div className="w-full h-full">
           {tabIndex === 0 && <UserInfo user={user} />}
           {tabIndex === 1 && <Orders />}
-          {tabIndex === 2 && <AddressInfo />}
+          {tabIndex === 2 && <AddressInfo user={user} />}
         </div>
       </div>
       <ArrowForwardIosIcon

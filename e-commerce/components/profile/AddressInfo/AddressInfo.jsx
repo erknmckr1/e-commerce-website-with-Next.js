@@ -1,15 +1,34 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Title from "../../ui/Title";
 import AddIcon from "@mui/icons-material/Add";
-import DeleteIcon from "@mui/icons-material/Delete";
-import Update from "./UpdateAddress";
-function AddressInfo() {
-  const [close,setClose] = useState(false)
+import NewAddress from "./NewAddress";
+import AddressCard from "./AddressCard";
+import axios from "axios";
+import UpdateAddress from "./updateAdress";
 
+function AddressInfo({user}) {
+  const [close,setClose] = useState(false)
+  const [updatedClose,setUpdatedClose] = useState(false)
+  const [address,setAddress] = useState()
   const handleClick = () => {
     setClose(true)
     
   }
+
+  //! getAddress
+  useEffect(()=>{
+    const getAddress = async () => {
+      try {
+        const adresses = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/address`)
+        const filteredAddress = adresses.data.filter((item)=> item.email === user.user.email)
+        setAddress(filteredAddress)
+      } catch (err) {
+        console.log(err)
+      }
+    }
+    getAddress();
+  },[user.user.email])
+  
   return (
     <div className="flex-1 sm:ml-3 relative">
       <div className="flex flex-col gap-y-3">
@@ -25,59 +44,14 @@ function AddressInfo() {
         </div>
         {/* adress side */}
         <div className="w-full flex flex-wrap  border-2 p-5 gap-5 justify-center sm:justify-start">
-          <div className=" flex flex-col w-[300px] h-[250px] border-2 ">
-            <div className="h-[50px] w-full bg-slate-100 border-b-2 flex items-center">
-              <Title addProps="text-sm font-semibold px-5">Home Adress</Title>
-            </div>
-            <div className="w-full h-1/2 flex flex-col justify-between p-5">
-              <p className="text-xs font-semibold">Erkan Mustafa Çakır</p>
-              <p className="text-xs">Fevzi Çakmak Mahallesi güven sokak 32/9</p>
-              <p className="text-xs">Bahçelievler/İstanbul</p>
-              <p className="text-xs">5050054134</p>
-            </div>
-            <div className="w-full flex justify-between px-3 items-center">
-              <button className="text-primary hover:text-secondary hover:scale-110 transition-all">
-                <DeleteIcon />
-              </button>
-              <button className="btn !bg-secondary    ">Adresi Düzenle</button>
-            </div>
-          </div>
-          <div className=" flex flex-col w-[300px] h-[250px] border-2 ">
-            <div className="h-[50px] w-full bg-slate-100 border-b-2 flex items-center">
-              <Title addProps="text-sm font-semibold px-5">Home Adress</Title>
-            </div>
-            <div className="w-full h-1/2 flex flex-col justify-between p-5">
-              <p className="text-xs font-semibold">Erkan Mustafa Çakır</p>
-              <p className="text-xs">Fevzi Çakmak Mahallesi güven sokak 32/9</p>
-              <p className="text-xs">Bahçelievler/İstanbul</p>
-              <p className="text-xs">5050054134</p>
-            </div>
-            <div className="w-full flex justify-between px-3 items-center">
-              <button className="text-primary hover:text-secondary hover:scale-110 transition-all">
-                <DeleteIcon />
-              </button>
-              <button className="btn !bg-secondary    ">Adresi Düzenle</button>
-            </div>
-          </div>
-          <div className=" flex flex-col w-[300px] h-[250px] border-2 ">
-            <div className="h-[50px] w-full bg-slate-100 border-b-2 flex items-center">
-              <Title addProps="text-sm font-semibold px-5">Home Adress</Title>
-            </div>
-            <div className="w-full h-1/2 flex flex-col justify-between p-5">
-              <p className="text-xs font-semibold">Erkan Mustafa Çakır</p>
-              <p className="text-xs">Fevzi Çakmak Mahallesi güven sokak 32/9</p>
-              <p className="text-xs">Bahçelievler/İstanbul</p>
-              <p className="text-xs">5050054134</p>
-            </div>
-            <div className="w-full flex justify-between px-3 items-center">
-              <button className="text-primary hover:text-secondary hover:scale-110 transition-all">
-                <DeleteIcon />
-              </button>
-              <button onClick={handleClick} className="btn !bg-secondary    ">Adresi Düzenle</button>
-            </div>
-          </div>
+          {
+            address?.map(item => (
+              <AddressCard user={user} address={item} key={item._id}/>
+            ))
+          }
         </div>
-        {close === true ?  <Update setClose={setClose}/> : ""}
+        {close === true ?  <NewAddress user={user} setClose={setClose}/> : ""}
+        
       </div>
       
     </div>
