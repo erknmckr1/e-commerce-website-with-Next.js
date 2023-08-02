@@ -4,11 +4,10 @@ import AddIcon from "@mui/icons-material/Add";
 import NewAddress from "./NewAddress";
 import AddressCard from "./AddressCard";
 import axios from "axios";
-import UpdateAddress from "./updateAdress";
+
 
 function AddressInfo({user}) {
   const [close,setClose] = useState(false)
-  const [updatedClose,setUpdatedClose] = useState(false)
   const [address,setAddress] = useState()
   const handleClick = () => {
     setClose(true)

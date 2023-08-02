@@ -18,6 +18,9 @@ const OrderSchema = new mongoose.Schema(
       type: Number,
      
     },
+    products:{
+      type:[]
+    }
   },
   { timestamps: true }
 );

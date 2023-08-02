@@ -5,11 +5,11 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import axios from "axios";
 import { toast } from "react-hot-toast";
 import UpdateAddress from "./UpdateAdress";
-function AddressCard({ address,user}) {
-    const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
-    const [updatedClose,setUpdatedClose] = useState();
+function AddressCard({ address, user }) {
+  const label = { inputProps: { "aria-label": "Checkbox demo" } };
+  const [updatedClose, setUpdatedClose] = useState();
 
-    //! delete Addresses
+  //! delete Addresses
   const handleDeleteAddress = async (id) => {
     const res = await axios.delete(
       `${process.env.NEXT_PUBLIC_API_URL}/address/${id}`
@@ -20,26 +20,36 @@ function AddressCard({ address,user}) {
   };
 
   const handleClose = () => {
-    setUpdatedClose(true)
-  }
+    setUpdatedClose(true);
+  };
+
+  //! selected address
   const handleChange = async (e) => {
-    const checkedAddress = {...address,checked:e.target.value}
+    const checkedAddress = { ...address, checked: e.target.checked };
     try {
-        const res = await axios.put(`${process.env.NEXT_PUBLIC_API_URL}/address/${address._id}`,checkedAddress)
-        if(res.status === 200){
-            toast.success("Address selection made!")
-        }
+      const res = await axios.put(
+        `${process.env.NEXT_PUBLIC_API_URL}/address/${address._id}`,
+        checkedAddress
+      );
+      if (res.status === 200) {
+        toast.success("Address selection made!");
+      }
     } catch (err) {
-       console.log() 
+      console.log();
     }
-  }
+  };
   return (
     <div className=" flex flex-col w-[300px] h-[250px] border-2 ">
       <div className="h-[50px] w-full bg-slate-100 border-b-2 flex items-center justify-between">
         <Title addProps="text-sm font-semibold px-5">
           {address.addressTitle}
         </Title>
-        <Checkbox checked={address.checked} onChange={handleChange} {...label} size="small"/>
+        <Checkbox
+          checked={address.checked === true ? true : false}
+          onClick={handleChange}
+          {...label}
+          size="small"
+        />
       </div>
       <div className="w-full h-1/2 flex flex-col justify-between p-5">
         <p className="text-xs font-semibold">{address.firstName}</p>
@@ -54,10 +64,20 @@ function AddressCard({ address,user}) {
         >
           <DeleteIcon />
         </button>
-        <button onClick={handleClose} className="btn !bg-secondary">Adresi Düzenle</button>
+        <button onClick={handleClose} className="btn !bg-secondary">
+          Adresi Düzenle
+        </button>
       </div>
       {/* Updated Component */}
-      {updatedClose === true ?  <UpdateAddress id={address._id} user={user} setUpdatedClose={setUpdatedClose}/> : ""}
+      {updatedClose === true ? (
+        <UpdateAddress
+          id={address._id}
+          user={user}
+          setUpdatedClose={setUpdatedClose}
+        />
+      ) : (
+        ""
+      )}
     </div>
   );
 }

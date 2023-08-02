@@ -13,7 +13,8 @@ import { toast } from "react-hot-toast";
 import { reset } from "@/redux/cardSlice";
 
 
-function index({userList}) {
+function index({userList,addressList}) {
+ 
   const dispatch  = useDispatch();
   const {products,total,discountAmount,subTotal} = useSelector(state => state.card)
   const [show,setShot]= useState(true)
@@ -22,19 +23,26 @@ function index({userList}) {
 
   //! Kullanıcı hesapları arasından oturum acmıs kullanıcıyı fıltreledık.
   const user = userList.filter((user)=> user.email === session?.user.email)
-  console.log(user)
+
+  //! Kullanıcın adresleri içinden checked olanı bulduk 
+  const address = addressList.filter((address)=>address.checked  && address.email === user[0]?.email )
+  
   //! Sipariş bılgıleri 
   const order = {
     customer:user[0]?.firstName ,
-    address:user ? user[0]?.address :"",
+    address:address[0]?.address,
     total:total,
-    status:0
+    status:0,
+    products:products
   }
 
+  
+  
   const handleClick = () => {
     setShot(prev => !prev)
   }
 
+  //! create order
   const createOrder = async () => {
    try {
       if(session){
@@ -93,10 +101,11 @@ export default index;
 
 export const getServerSideProps = async () => {
   const user = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/user`)
-
+  const address = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/address`)
   return{
     props:{
-      userList:user.data ? user.data : []
+      userList:user.data ? user.data : [],
+      addressList:address.data ? address.data : []
     }
   }
 }
