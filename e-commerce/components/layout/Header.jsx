@@ -13,7 +13,7 @@ function Header() {
   const [searchButton,setSearchButton] = useState(false)
 
   const {quantity} = useSelector(state => state.card)
-  console.log(quantity)
+ 
 
   const handleClick = () => {
     setTimeout(()=>{

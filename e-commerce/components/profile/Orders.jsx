@@ -6,7 +6,7 @@ import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 function Orders({ orderList }) {
   const [openOrder, setOpenOrder] = useState(null);
-
+  const status = ["Preparing","On The Road","Delivered"]
   
   return (
     <div className="flex-1 sm:ml-3">
@@ -23,16 +23,16 @@ function Orders({ orderList }) {
                 <p className="text-sm">{order.createdAt.substring(0, 10)}</p>
               </div>
               <div className="flex flex-col">
-                <p className="font-semibold text-xs">Order Sum</p>
-                <p className="text-sm">--------</p>
-              </div>
-              <div className="flex flex-col">
                 <p className="font-semibold text-xs">Buyer</p>
                 <p className="text-sm">{order.customer}</p>
               </div>
               <div className="flex flex-col">
                 <p className="font-semibold text-xs">Price</p>
                 <p className="text-sm">{order.total} TL</p>
+              </div>
+              <div className="flex flex-col">
+                <p className="font-semibold text-xs">Status</p>
+                <p className="text-sm text-green-700">{status[order.status]}</p>
               </div>
               {openOrder === null ? (
                 <ArrowDropDownIcon className="cursor-pointer" onClick={() => setOpenOrder(order._id)} />

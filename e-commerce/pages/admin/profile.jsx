@@ -11,13 +11,16 @@ import Products from "@/components/admin/Products";
 import AddIcon from '@mui/icons-material/Add';
 import AddProduct from "@/components/admin/AddProduct";
 import Categories from "@/components/admin/Categories";
+import Order from "@/components/admin/Order"
 
 function profile({productList,categoryList}) {
+  
   const { push } = useRouter();
   const [tabIndex, setTabIndex] = useState(0);
   const [close, setClose] = useState(true);
   const [isVisible,setIsVisible] = useState(false)
 
+  //! Open/close left side
   const handleClick = () => {
     setClose((prev) => !prev);
   };
@@ -40,10 +43,10 @@ function profile({productList,categoryList}) {
   };
 
   return (
-    <div className=" flex flex-col md:flex-row   py-10 relative min:h-[calc(100vh_-_510px)]  ">
+    <div className=" flex flex-col md:flex-row h-full  py-10 relative min:h-[calc(100vh_-_510px)]  ">
       {/* left side */}
       <div
-        className={` w-[250px] h-full  bg-slate-200 absolute top-0 left-0  z-30   duration-1000 ${
+        className={` w-[250px]   bg-slate-200 absolute sm:static top-0 left-0 h-[510px]  z-30   duration-1000 ${
           close === false ? "-translate-x-[400px]" : ""
         }`}
       >
@@ -115,6 +118,7 @@ function profile({productList,categoryList}) {
       </div>
       {/* right side */}
       {tabIndex === 0 && <Products productList={productList} />}
+      {tabIndex === 1 && <Order/>}
       {tabIndex === 2 && <Categories />}
       {isVisible && <AddProduct categoryList={categoryList} setIsVisible={setIsVisible} isVisible={isVisible}/>}
       <ArrowForwardIosIcon
@@ -132,11 +136,10 @@ export const getServerSideProps = async () => {
 
   const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/product`)
   const categories = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/category`)
-
   return{
     props:{
       productList: res.data ? res.data : [],
-      categoryList:categories.data ? categories.data : []
+      categoryList:categories.data ? categories.data : [],
     }
   }
 
