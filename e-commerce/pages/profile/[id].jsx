@@ -9,7 +9,7 @@ import AddressInfo from "@/components/profile/AddressInfo/AddressInfo";
 import axios from "axios";
 import { getSession, signOut } from "next-auth/react";
 import { toast } from "react-hot-toast";
-function index({ user }) {
+function index({ user,orderList }) {
   const [tabIndex, setTabIndex] = useState(0);
   const [close, setClose] = useState(true);
   
@@ -100,7 +100,7 @@ function index({ user }) {
         {/* right side */}
         <div className="w-full h-full">
           {tabIndex === 0 && <UserInfo user={user} />}
-          {tabIndex === 1 && <Orders />}
+          {tabIndex === 1 && <Orders orderList={orderList} />}
           {tabIndex === 2 && <AddressInfo user={user} />}
         </div>
       </div>
@@ -130,9 +130,12 @@ export const getServerSideProps = async ({ req, params }) => {
     `${process.env.NEXT_PUBLIC_API_URL}/user/${params.id}`
   );
 
+  const orders = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/order`)
+
   return {
     props: {
       user: user.data ? user.data : null,
+      orderList: orders.data ? orders.data : null
     },
   };
 };

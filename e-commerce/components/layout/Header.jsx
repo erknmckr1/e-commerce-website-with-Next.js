@@ -7,9 +7,13 @@ import Link from "next/link";
 import MenuIcon from "@mui/icons-material/Menu";
 import Search from "../ui/Search";
 import ScrollButton from "../ui/ScrollButton";
+import { useSelector } from "react-redux";
 function Header() {
   const [burgerButton, setBurgerButton] = useState(true);
   const [searchButton,setSearchButton] = useState(false)
+
+  const {quantity} = useSelector(state => state.card)
+  console.log(quantity)
 
   const handleClick = () => {
     setTimeout(()=>{
@@ -59,9 +63,11 @@ function Header() {
                 </button>
               
               <Link href="/card">
-                <button>
+                <button className="relative">
                   <ShoppingBasketIcon />
+                  {quantity > 0 && <span className=" text-center text-sm absolute left-4 w-4 h-4 text-white rounded-full bg-primary">{quantity}</span>}
                 </button>
+                
               </Link>
             </div>
       
