@@ -38,7 +38,8 @@ export const authOptions = {
 const signInUser = async ({ user, password }) => {
     const isMAtch = await bcrypt.compare(password, user.password);
     if (!isMAtch) {
-      throw new Error("Incorrect password!");
+      //throw new Error("Incorrect password!");
+      return console.log("Şifre eşleşmiypr ")
     }
     return user;
   };

@@ -9,10 +9,13 @@ import AddressInfo from "@/components/profile/AddressInfo/AddressInfo";
 import axios from "axios";
 import { getSession, signOut } from "next-auth/react";
 import { toast } from "react-hot-toast";
-function index({ user,orderList }) {
+import Saved from "@/components/profile/Saved";
+
+
+function index({ user,orderList,productList }) {
   const [tabIndex, setTabIndex] = useState(0);
   const [close, setClose] = useState(true);
-  
+
   const handleClick = () => {
     setClose((prev) => !prev);
   };
@@ -29,7 +32,7 @@ function index({ user,orderList }) {
       <div className="w-full h-full flex justify-between  ">
         {/* left side */}
         <div
-          className={`sm:w-[350px] w-[250px]  bg-slate-200 absolute top-0 sm:static z-40 h-screen sm:h-auto duration-1000 ${
+          className={`sm:w-[350px] w-[250px]  bg-slate-200 absolute top-0 sm:static z-20 h-screen sm:h-auto duration-1000 ${
             close === false ? "-translate-x-[300px]" : ""
           }`}
         >
@@ -102,6 +105,7 @@ function index({ user,orderList }) {
           {tabIndex === 0 && <UserInfo user={user} />}
           {tabIndex === 1 && <Orders orderList={orderList} />}
           {tabIndex === 2 && <AddressInfo user={user} />}
+          {tabIndex === 3 && <Saved productList={productList} user={user}/>}
         </div>
       </div>
       <ArrowForwardIosIcon
@@ -131,11 +135,12 @@ export const getServerSideProps = async ({ req, params }) => {
   );
 
   const orders = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/order`)
-
+  const products = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/product`)
   return {
     props: {
       user: user.data ? user.data : null,
-      orderList: orders.data ? orders.data : null
+      orderList: orders.data ? orders.data : null,
+      productList : products.data ? products.data : null
     },
   };
 };

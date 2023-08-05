@@ -38,8 +38,13 @@ const UserSchema = new mongoose.Schema(
       },
       year:{
         type:String
+      },
+      saved:{
+        type:[String],
+        default:[]
       }
-  }
+  },
+  {timestamps:true}
 
 );
 

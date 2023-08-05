@@ -4,7 +4,7 @@ import Slider from "react-slick";
 function ProductWrapper({productList,categoryList}) {
   const [active, setActive] = useState("");
   const [filteredProduct,setFilteredProduct] = useState([]);
- 
+  
   const handleFiltered = (category) => {
     const filtered = productList.filter((product)=>(
       product.category === category
@@ -49,7 +49,7 @@ function ProductWrapper({productList,categoryList}) {
       <div className="bg-secondary w-full">
         <div className=" ">
           <Slider {...settings}>
-          {categoryList.map((category, index) => (
+          {categoryList?.map((category, index) => (
             <button
               className={`btn mx-3 hover:bg-white hover:text-primary ${
                 active === index ? "!bg-white !text-secondary " : ""

@@ -34,6 +34,7 @@ function Orders({ orderList }) {
                 <p className="font-semibold text-xs">Status</p>
                 <p className="text-sm text-green-700">{status[order.status]}</p>
               </div>
+              {/* tıkladıgmız urunun id sini openOrder state'ine set ettik. */}
               {openOrder === null ? (
                 <ArrowDropDownIcon className="cursor-pointer" onClick={() => setOpenOrder(order._id)} />
               ) : (
@@ -41,6 +42,7 @@ function Orders({ orderList }) {
               )}
             </div>
             {/* bottom side */}
+            {/* orderId ile openOrder eslesıyorsa detay gozukecek. */}
             { openOrder === order._id && order.products.map((item) => (
               <div
                 key={item._id}

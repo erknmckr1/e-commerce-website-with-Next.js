@@ -2,6 +2,7 @@ import axios from "axios";
 import Home from "./home";
 import Head from "next/head";
 export default function Index({productList,categoryList}) {
+  
   return (
     <div>
     <Head>
@@ -27,11 +28,12 @@ export default function Index({productList,categoryList}) {
 export const getServerSideProps = async () => {
   const product =  await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/product`)
   const categories = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/category`)
-
+  const userList = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/user`)
   return{
     props:{
       productList: product.data ? product.data : [],
-      categoryList:categories.data ? categories.data : []
+      categoryList:categories.data ? categories.data : [],
+      userList : userList.data ? userList.data : []
     }
   }
 }

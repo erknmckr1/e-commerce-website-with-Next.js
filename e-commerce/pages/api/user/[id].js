@@ -19,6 +19,9 @@ const handler = async (req, res) => {
 
   if (method === "PUT") {
     try {
+      if (req.body.saved) {
+        const updateSaved = await User.findByIdAndUpdate(id,{saved:req.body.saved},{new:true});
+      }
       if (req.body.password) {
         req.body.password = await bcrypt.hash(req.body.password, 10);
         req.body.confirmPassword = await bcrypt.hash(
