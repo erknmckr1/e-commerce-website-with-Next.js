@@ -12,6 +12,7 @@ import AddIcon from '@mui/icons-material/Add';
 import AddProduct from "@/components/admin/AddProduct";
 import Categories from "@/components/admin/Categories";
 import Order from "@/components/admin/Order"
+import Footer from "@/components/admin/Footer";
 
 function profile({productList,categoryList}) {
   
@@ -120,6 +121,7 @@ function profile({productList,categoryList}) {
       {tabIndex === 0 && <Products productList={productList} />}
       {tabIndex === 1 && <Order/>}
       {tabIndex === 2 && <Categories />}
+      {tabIndex === 3 && <Footer/>}
       {isVisible && <AddProduct categoryList={categoryList} setIsVisible={setIsVisible} isVisible={isVisible}/>}
       <ArrowForwardIosIcon
         onClick={handleClick}
