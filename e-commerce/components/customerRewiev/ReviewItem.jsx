@@ -23,7 +23,7 @@ function ReviewItem({ review }) {
       }
     };
     getUsers();
-  }, []);
+  }, [review.email]);
 
   //! İndex e göre background ekleyecegız
   return (
