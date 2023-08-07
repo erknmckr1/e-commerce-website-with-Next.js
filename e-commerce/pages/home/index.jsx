@@ -16,7 +16,7 @@ function Home({productList,categoryList}) {
       <About />
       <ProductSection />
       <Blog />
-      <Review />
+      <Review  />
     </div>
   );
 }

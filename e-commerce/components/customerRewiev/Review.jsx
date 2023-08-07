@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Title from "../ui/Title";
 import ReviewItem from "./ReviewItem";
 import Slider from "react-slick";
@@ -9,12 +9,16 @@ import Typography from "@mui/joy/Typography";
 import { Button } from "@mui/material";
 import Add from "@mui/icons-material/Add";
 import { useState } from "react";
+import { useSession } from "next-auth/react";
+import axios from "axios";
+import { toast } from "react-hot-toast";
 function Review() {
+  const { data: session } = useSession();
+  const [reviews, setReviews] = useState([]);
   //!
   const [comment, setComment] = useState("");
   const addEmoji = (emoji) => () => setComment(`${comment}${emoji}`);
   //!
-  const [comments, setComments] = useState([]);
   const settings = {
     dots: true,
     infinite: true,
@@ -33,16 +37,53 @@ function Review() {
       },
     ],
   };
+
+  //! create review
+  const createReview = async () => {
+    if (session) {
+      const newReview = { review: comment, email: session?.user?.email };
+      try {
+        const rewiev = await axios.post(
+          `${process.env.NEXT_PUBLIC_API_URL}/review`,
+          newReview
+        );
+        if (rewiev.status === 200) {
+          toast.success("Comment created successfully!");
+          setComment("");
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    }
+  };
+
+  //! get review
+  useEffect(() => {
+    const getReviews = async () => {
+      try {
+        const reviews = await axios.get(
+          `${process.env.NEXT_PUBLIC_API_URL}/review`
+        );
+        setReviews(reviews.data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    getReviews();
+  }, []);
+
   return (
     <div className="w-screen">
       <div className="container mx-auto w-full h-full">
         <div className="w-full h-full flex-col">
           <div className="w-full h-full  px-2 sm:px-0 ">
-            <Title addProps="text-[40px] py-10 ml-10 lg:ml-0 ">Customer Review</Title>
+            <Title addProps="text-[40px] py-10 ml-10 lg:ml-0 ">
+              Customer Review
+            </Title>
             <Slider {...settings}>
-              <ReviewItem />
-              <ReviewItem />
-              <ReviewItem />
+              {reviews.map((item, index) => (
+                <ReviewItem review={item} key={index} />
+              ))}
             </Slider>
           </div>
           <div>
@@ -88,7 +129,10 @@ function Review() {
                 />
               </div>
 
-              <Button className="text-white hover:bg-secondary font-semibold text-sm bg-primary mt-5 sm:mt-0 ml-5 lg:ml-0">
+              <Button
+                onClick={createReview}
+                className="text-white hover:bg-secondary font-semibold text-sm bg-primary mt-5 sm:mt-0 ml-5 lg:ml-0"
+              >
                 {" "}
                 <Add className="text-[30px]" /> Add to comment
               </Button>

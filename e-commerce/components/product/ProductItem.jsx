@@ -39,7 +39,7 @@ function ProductItem({ product }) {
       })
     );
   };
-  console.log(user)
+  
   //! Add favorite
   const handleFav = async (e) => {
     if(session && user){
