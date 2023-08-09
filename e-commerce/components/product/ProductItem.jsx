@@ -8,8 +8,10 @@ import { addProduct } from "@/redux/cardSlice";
 import { useSession } from "next-auth/react";
 import axios from "axios";
 import { toast } from "react-hot-toast";
+import { useRouter } from "next/router";
 function ProductItem({ product }) {
- 
+  const {push} = useRouter();
+
   const dispatch = useDispatch();
   const label = { inputProps: { "aria-label": "Checkbox demo" } };
 
@@ -68,7 +70,7 @@ function ProductItem({ product }) {
   return (
     <div className="w-[260px] h-[400px] border-2 p-3 relative">
       <div className="w-full h-full">
-        <div className="bg-white h-1/2 flex justify-center hover:scale-110 transition-all">
+        <div onClick={()=>{push(`/product/${product._id}`)}} className="bg-white h-1/2 flex justify-center cursor-pointer hover:scale-110 transition-all">
           <Image alt="" src={product.image} width={200} height={200} />
         </div>
         <div className="flex w-full h-1/2 justify-between  flex-col items-center  uppercase ">
