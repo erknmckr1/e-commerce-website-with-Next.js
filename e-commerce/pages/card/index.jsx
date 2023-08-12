@@ -18,8 +18,7 @@ function index({userList,addressList}) {
   const {products,total,discountAmount,subTotal} = useSelector(state => state.card)
   const [show,setShot]= useState(true)
   const {data:session} = useSession();
- 
-
+  
   //! Kullanıcı hesapları arasından oturum acmıs kullanıcıyı fıltreledık.
   const user = userList.filter((user)=> user.email === session?.user.email)
 
@@ -66,8 +65,8 @@ function index({userList,addressList}) {
         <Title addProps="text-[25px]">My Card({products.length})</Title>
         <div className="w-full flex gap-x-5 py-10 ">
           <div className="w-full  h-full  flex flex-col gap-y-3 px-1 max-h-[510px] overflow-y-scroll">
-           {products.length > 0 ? products.map((product)=>(
-            <OrderCard key={product._id}/>
+           {products.length > 0 ? products.map((product,index)=>(
+            <OrderCard product={product} key={index} order={index}/>
            )) : <span></span>}
           </div>
           <div className={`  sm:w-1/4 h-[200px] bg-[#FEF2E7]  rounded-lg lg:p-4 sm:p-5 p-1 py-3 flex flex-col justify-between right-0  lg:right-14 fixed   ${show===false ? "translate-x-[400px]" :""} transition-all duration-1000 `}>

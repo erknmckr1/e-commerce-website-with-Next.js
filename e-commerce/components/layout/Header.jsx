@@ -8,7 +8,10 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Search from "../ui/Search";
 import ScrollButton from "../ui/ScrollButton";
 import { useSelector } from "react-redux";
+import { useRouter } from "next/router";
 function Header() {
+  const {pathname} = useRouter();
+  console.log(pathname)
   const [burgerButton, setBurgerButton] = useState(true);
   const [searchButton,setSearchButton] = useState(false)
 
@@ -24,34 +27,34 @@ function Header() {
   return (
     <header className="z-40 h-[80px]   bg-transparent text-black font-bold bg-white  p-10 relative">
       <div className="w-full h-full container mx-auto flex items-center justify-between">
-        <div className="text-[25px] w-1/3">LOGO</div>
+        <div className="text-[30px] w-1/3">LOGO</div>
         <nav
           className={`w-2/3 ${
             burgerButton === true ? "hidden lg:flex" : "flex" 
-          } flex justify-between text-[18px] absolute z-50 lg:static top-[70px] left-0 p-16 lg:p-0 
+          } flex justify-between text-[16px] absolute z-50 lg:static top-[70px] left-0 p-16 lg:p-0 
           transition-all duration-1000 w-full bg-white   " `}
         >
             <ul className="flex gap-x-8 gap-y-6 lg:gap-y-0 flex-col lg:flex-row  ">
               <li>
-                <Link onClick={handleClick} href="/">HOME</Link>
+                <Link className={`hover:underline ${pathname === "/" ? "text-red-500" :" "}`} onClick={handleClick} href="/">HOME</Link>
               </li>
               <li>
-                <Link onClick={handleClick} href="/shop">SHOP</Link>
+                <Link className={`hover:underline ${pathname === "/shop" ? "text-red-500" :" "}`} onClick={handleClick} href="/shop">SHOP</Link>
               </li>
               <li>
-                <Link onClick={handleClick} href="/blog">BLOG</Link>
+                <Link className={`hover:underline ${pathname === "/blog" ? "text-red-500" :" "}`} href="/blog">BLOG</Link>
               </li>
               <li>
-                <Link onClick={handleClick} href="/product">OUR PRODUCT</Link>
+                <Link className={`hover:underline ${pathname === "/product" ? "text-red-500" :" "}`} href="/product">OUR PRODUCT</Link>
               </li>
               <li>
-                <Link onClick={handleClick} href="/rewievs">CLIENTS</Link>
+                <Link className={`hover:underline ${pathname === "/rewievs" ? "text-red-500" :" "}`} href="/rewievs">CLIENTS</Link>
               </li>
               <li>
-                <Link onClick={handleClick} href="/contact">CONTACT US</Link>
+                <Link className={`hover:underline ${pathname === "/contact" ? "text-red-500" :" "}`} href="/contact">CONTACT US</Link>
               </li>
             </ul>
-            <div className="flex gap-x-5 gap-y-6 lg:gap-y-0 flex-col lg:flex-row">
+            <div className="flex gap-x-3 gap-y-6 lg:gap-y-0 flex-col lg:flex-row">
               <Link onClick={handleClick} href="/auth/login">
                 <button>
                   <PersonIcon />
