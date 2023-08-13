@@ -15,6 +15,10 @@ import UserInformationSchema from "@/schema/userInformation";
 import { toast } from "react-hot-toast";
 import axios from "axios";
 function UserInfo({ user }) {
+
+  const [imageSrc, setImageSrc] = useState();
+  const [imageFile, setImageFile] = useState();
+
   const [checkboxState, setCheckboxState] = useState({
     Woman: false,
     Man: false,
@@ -32,10 +36,21 @@ function UserInfo({ user }) {
 
   //! Updated Informatıon
   const onSubmit = async (values) => {
+    const data = new FormData();
+    data.append("file", imageFile);
+    data.append("upload_preset", "ecommerce");
+
     try {
+
+      const uploadImg = await axios.post(
+        "https://api.cloudinary.com/v1_1/dtar4nbiw/image/upload",
+        data
+      );
+      const { url } = uploadImg.data;
+
       const res = await axios.put(
         `${process.env.NEXT_PUBLIC_API_URL}/user/${user.user._id}`,
-        values
+        {...values,image:url}
       );
       if(res.status===200){
         toast.success("User Information Updated!")
@@ -44,6 +59,19 @@ function UserInfo({ user }) {
     } catch (err) {
       console.log(err);
     }
+  };
+
+  //! choose image
+  const handleFileChange = (changeEvent) => {
+    const reader = new FileReader();
+
+    //! Gelen dosyayı base64 formatında oku
+    reader.readAsDataURL(changeEvent.target.files[0]);
+
+    reader.onload = function (onLoadEvent) {
+      setImageSrc(onLoadEvent.target.result);
+      setImageFile(changeEvent.target.files[0]);
+    };
   };
 
   
@@ -263,6 +291,28 @@ function UserInfo({ user }) {
           </label>
           <div className=" absolute sm:bottom-0 -bottom-10 ">
             <button type="submit"  className="btn">UPDATE</button>
+          </div>
+          <div className="flex flex-col w-full py-5 px-10">
+            <label className="flex gap-2 items-center">
+              <input
+                type="file"
+                onChange={(e) => handleFileChange(e)}
+                className="hidden"
+              />
+              <button className="btn !rounded-none !bg-blue-600 pointer-events-none">
+                Choose an Image
+              </button>
+              {imageSrc && (
+                <div>
+                  {/*eslint-disable-next-line @next/next/no-img-element*/}
+                  <img
+                    src={imageSrc}
+                    alt=""
+                    className="w-12 h-12 rounded-full"
+                  />
+                </div>
+              )}
+            </label>
           </div>
         </div>
       </div>

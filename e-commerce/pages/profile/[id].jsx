@@ -41,7 +41,7 @@ function index({ user,orderList,productList }) {
               alt=""
               width={100}
               height={100}
-              src="/images/product1.jpeg"
+              src={user.user.image}
               className="rounded-full"
             />
             <span className="py-5 text-[20px] font-semibold">{user.user.firstName}</span>

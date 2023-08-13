@@ -11,7 +11,6 @@ import { useSelector } from "react-redux";
 import { useRouter } from "next/router";
 function Header() {
   const {pathname} = useRouter();
-  console.log(pathname)
   const [burgerButton, setBurgerButton] = useState(true);
   const [searchButton,setSearchButton] = useState(false)
 
